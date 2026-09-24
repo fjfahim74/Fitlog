@@ -1,5 +1,7 @@
 import { Workout } from "@/types/Workout";
 import Image from "next/image";
+import Link from "next/link";
+import Badge from "@/components/shared/Badge";
 
 interface IWorkoutCardProps {
     workout: Workout;
@@ -7,7 +9,8 @@ interface IWorkoutCardProps {
 
 const WorkoutCard = ({ workout }: IWorkoutCardProps) => {
     return (
-        <div className="group overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-900">
+        <Link
+            href={`/workout/${workout.id}`} className="group overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-900">
             <div className="relative h-64 overflow-hidden rounded-2xl">
                 <Image
                     src={workout.image}
@@ -21,12 +24,7 @@ const WorkoutCard = ({ workout }: IWorkoutCardProps) => {
             <div className="p-7">
                 <div className="flex flex-wrap gap-2 my-3">
                     {workout.muscleGroups.map((muscle) => (
-                        <span
-                            key={muscle}
-                            className="bg-lime-400 text-black font-bold uppercase px-4 py-1.5 rounded-full text-xs"
-                        >
-                            {muscle}
-                        </span>
+                        <Badge key={muscle}>{muscle}</Badge>
                     ))}
                 </div>
                 <h3 className="text-white text-xl font-extrabold uppercase">
@@ -42,7 +40,7 @@ const WorkoutCard = ({ workout }: IWorkoutCardProps) => {
                     <span>☆ {workout.rating}</span>
                 </div>
             </div>
-        </div>
+        </Link>
     );
 };
 
