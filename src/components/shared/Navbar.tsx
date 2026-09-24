@@ -1,10 +1,14 @@
+"use client";
 import Link from "next/link";
 import React from "react";
 import Image from "next/image";
-
 import logo from "@/assets/logo.png";
+import { useContext } from "react";
+import { WorkoutContext } from "@/context/WorkoutContext";
+
 
 const Navbar = () => {
+    const { planWorkouts, savedWorkouts } = useContext(WorkoutContext);
     return (
         <div className="navbar bg-black text-white px-6 shadow-sm border-b border-zinc-800">
             <div className="navbar-start">
@@ -69,14 +73,14 @@ const Navbar = () => {
                 <Link href="/my-plan" className="flex items-center space-x-2">
                     <span className="text-zinc-300">Plan</span>
                     <span className="bg-lime-400 text-black font-bold w-6 h-6 rounded-full flex items-center justify-center text-xs">
-                        0
+                        {planWorkouts.length}
                     </span>
                 </Link>
 
                 <Link href="/my-plan" className="flex items-center space-x-2">
                     <span className="text-zinc-300">Saved</span>
                     <span className="border border-zinc-700 text-zinc-300 font-bold w-6 h-6 rounded-full flex items-center justify-center text-xs">
-                        0
+                        {savedWorkouts.length}
                     </span>
                 </Link>
             </div>

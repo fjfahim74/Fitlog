@@ -9,7 +9,7 @@ interface IWorkoutContext {
     setSavedWorkouts: React.Dispatch<React.SetStateAction<Workout[]>>;
 }
 
-const WorkoutContext = createContext<IWorkoutContext>({
+export const WorkoutContext = createContext<IWorkoutContext>({
     planWorkouts: [],
     setPlanWorkouts: () => { },
     savedWorkouts: [],

@@ -2,6 +2,8 @@ import { Workout } from "@/types/Workout";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import Badge from "@/components/shared/Badge";
+import AddToPlanButton from "@/components/workoutDetails/AddToPlanButton";
+import SaveButton from "@/components/workoutDetails/SaveButton";
 
 interface WorkoutDetailsProps {
     params: Promise<{
@@ -32,7 +34,7 @@ const WorkoutDetails = async ({ params }: WorkoutDetailsProps) => {
 
     const workout = workoutsData.find(
         (workout: Workout) => String(workout.id) === String(id)
-    );
+    ) as Workout;
 
     if (!workout) {
         notFound();
@@ -153,6 +155,10 @@ const WorkoutDetails = async ({ params }: WorkoutDetailsProps) => {
                                     </li>
                                 ))}
                             </ol>
+                            <div className="flex justify-center lg:justify-start gap-3 mt-10">
+                                <AddToPlanButton workout={workout} />
+                                <SaveButton workout={workout} />
+                            </div>
                         </div>
                     </div>
                 </div>
