@@ -22,7 +22,7 @@ const Hero = () => {
                         FitLog is a dark, no-nonsense gym companion: pick a lift, lock it <br /> into today's plan, and watch the week's work add up.
                     </p>
                     <Link
-                        href="/workouts"
+                        href="#library"
                         className="bg-lime-400 text-black font-bold px-8 py-4 rounded-xl text-sm tracking-wide hover:bg-lime-300 transition"
                     >
                         BROWSE WORKOUTS
