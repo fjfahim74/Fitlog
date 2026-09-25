@@ -9,12 +9,15 @@ import Button2 from "@/components/shared/Button-2";
 
 interface PlanWorkoutCardProps {
     workout: Workout;
+    isSaved: boolean;
 }
 
-const PlanWorkoutCard = ({ workout }: PlanWorkoutCardProps) => {
+const PlanWorkoutCard = ({ workout, isSaved }: PlanWorkoutCardProps) => {
     const {
         planWorkouts,
         setPlanWorkouts,
+        savedWorkouts,
+        setSavedWorkouts,
         completedWorkouts,
         setCompletedWorkouts,
     } = useContext(WorkoutContext);
@@ -32,6 +35,14 @@ const PlanWorkoutCard = ({ workout }: PlanWorkoutCardProps) => {
     };
 
     const handleRemove = () => {
+
+        if (isSaved) {
+            setSavedWorkouts(
+                savedWorkouts.filter((item) => item.id !== workout.id)
+            );
+            return;
+        }
+
         setPlanWorkouts(
             planWorkouts.filter((item) => item.id !== workout.id)
         );
@@ -68,20 +79,24 @@ const PlanWorkoutCard = ({ workout }: PlanWorkoutCardProps) => {
                 </div>
             </div>
             <div className="flex items-center gap-3 ml-auto">
-                <Link href={`/workout/${workout.id}`}>
-                    <Button2>
-                        View Details
-                    </Button2>
-                </Link>
+                {!isSaved && (
+                    <>
+                        <Link href={`/workout/${workout.id}`}>
+                            <Button2>
+                                View Details
+                            </Button2>
+                        </Link>
 
-                <Button1
-                    completed={completedWorkouts.some((item) => item.id === workout.id)}
-                    onClick={handleMarkAsDone}
-                >
-                    {completedWorkouts.some((item) => item.id === workout.id)
-                        ? "✓ Completed"
-                        : "✓ Mark as Done"}
-                </Button1>
+                        <Button1
+                            completed={completedWorkouts.some((item) => item.id === workout.id)}
+                            onClick={handleMarkAsDone}
+                        >
+                            {completedWorkouts.some((item) => item.id === workout.id)
+                                ? "✓ Completed"
+                                : "✓ Mark as Done"}
+                        </Button1>
+                    </>
+                )}
 
                 <button
                     onClick={handleRemove}

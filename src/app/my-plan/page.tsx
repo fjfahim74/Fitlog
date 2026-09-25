@@ -1,12 +1,16 @@
 "use client";
 import Link from "next/link";
 import Button from "@/components/shared/Button-1";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { WorkoutContext } from "@/context/WorkoutContext";
 import PlanWorkoutCard from "@/components/myPlan/PlanWorkoutCard";
 
 const MyPlan = () => {
     const { planWorkouts } = useContext(WorkoutContext);
+    const { savedWorkouts } = useContext(WorkoutContext);
+    const [activeTab, setActiveTab] = useState("plan");
+    const workouts =
+        activeTab === "plan" ? planWorkouts : savedWorkouts;
     const totalMinutes = planWorkouts.reduce(
         (total, workout) => total + workout.duration,
         0
@@ -55,11 +59,25 @@ const MyPlan = () => {
 
             <div className="flex items-center justify-between mt-8">
                 <div className="bg-[#12141c] p-1.5 rounded-xl flex items-center border border-zinc-800">
-                    <button className="bg-[#222635] text-white px-5 py-2 rounded-lg text-sm font-bold">
+                    <button
+                        onClick={() => setActiveTab("plan")}
+                        className={
+                            activeTab === "plan"
+                                ? "bg-[#222635] text-white px-5 py-2 rounded-lg text-sm font-bold"
+                                : "text-zinc-400 px-5 py-2 rounded-lg text-sm font-medium"
+                        }
+                    >
                         Today's Plan
                     </button>
 
-                    <button className="text-zinc-400 px-5 py-2 rounded-lg text-sm font-medium">
+                    <button
+                        onClick={() => setActiveTab("saved")}
+                        className={
+                            activeTab === "saved"
+                                ? "bg-[#222635] text-white px-5 py-2 rounded-lg text-sm font-bold"
+                                : "text-zinc-400 px-5 py-2 rounded-lg text-sm font-medium"
+                        }
+                    >
                         Saved
                     </button>
                 </div>
@@ -75,7 +93,7 @@ const MyPlan = () => {
                 </div>
             </div>
 
-            {planWorkouts.length === 0 ? (
+            {workouts.length === 0 ? (
                 <div className="border border-zinc-800 border-dashed rounded-2xl p-16 text-center mt-6 bg-zinc-950">
                     <h2 className="text-white text-2xl font-bold">
                         NOTHING HERE YET
@@ -97,8 +115,8 @@ const MyPlan = () => {
                 </div>
             ) : (
                 <div>
-                    {planWorkouts.map((workout) => (
-                        <PlanWorkoutCard key={workout.id} workout={workout} />
+                    {workouts.map((workout) => (
+                        <PlanWorkoutCard key={workout.id} workout={workout} isSaved={activeTab === "saved"} />
                     ))}
                 </div>
             )}
