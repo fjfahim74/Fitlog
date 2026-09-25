@@ -1,8 +1,21 @@
+"use client";
 import Link from "next/link";
-
 import Button from "@/components/shared/Button-1";
+import { useContext } from "react";
+import { WorkoutContext } from "@/context/WorkoutContext";
+import PlanWorkoutCard from "@/components/myPlan/PlanWorkoutCard";
 
 const MyPlan = () => {
+    const { planWorkouts } = useContext(WorkoutContext);
+    const totalMinutes = planWorkouts.reduce(
+        (total, workout) => total + workout.duration,
+        0
+    );
+    const totalCalories = planWorkouts.reduce(
+        (total, workout) => total + workout.caloriesBurned,
+        0
+    );
+
     return (
         <main className="px-5 pt-11 pb-8">
             <div className="border border-zinc-800 rounded-2xl p-5 bg-[#12141c]">
@@ -12,7 +25,7 @@ const MyPlan = () => {
                             EXERCISES
                         </p>
                         <p className="text-[#a3e635] text-3xl font-bold mt-2">
-                            2
+                            {planWorkouts.length}
                         </p>
                     </div>
 
@@ -23,7 +36,7 @@ const MyPlan = () => {
                             MINUTES
                         </p>
                         <p className="text-white text-3xl font-bold mt-2">
-                            23
+                            {totalMinutes}
                         </p>
                     </div>
 
@@ -34,7 +47,7 @@ const MyPlan = () => {
                             CALORIES
                         </p>
                         <p className="text-white text-3xl font-bold mt-2">
-                            190
+                            {totalCalories}
                         </p>
                     </div>
                 </div>
@@ -62,25 +75,33 @@ const MyPlan = () => {
                 </div>
             </div>
 
-            <div className="border border-zinc-800 border-dashed rounded-2xl p-16 text-center mt-6 bg-zinc-950">
-                <h2 className="text-white text-2xl font-bold">
-                    NOTHING HERE YET
-                </h2>
+            {planWorkouts.length === 0 ? (
+                <div className="border border-zinc-800 border-dashed rounded-2xl p-16 text-center mt-6 bg-zinc-950">
+                    <h2 className="text-white text-2xl font-bold">
+                        NOTHING HERE YET
+                    </h2>
 
-                <p className="text-zinc-400 mt-2">
-                    Browse the library and add a lift to get today moving.
-                </p>
+                    <p className="text-zinc-400 mt-2">
+                        Browse the library and add a lift to get today moving.
+                    </p>
 
-                <div className="flex justify-center mt-6">
-                    <Link href="/">
-                        <Button>
-                            <div className="-mt-1">
-                                Go to workouts
-                            </div>
-                        </Button>
-                    </Link>
+                    <div className="flex justify-center mt-6">
+                        <Link href="/">
+                            <Button>
+                                <div className="-mt-1">
+                                    Go to workouts
+                                </div>
+                            </Button>
+                        </Link>
+                    </div>
                 </div>
-            </div>
+            ) : (
+                <div>
+                    {planWorkouts.map((workout) => (
+                        <PlanWorkoutCard key={workout.id} workout={workout} />
+                    ))}
+                </div>
+            )}
         </main>
     );
 };
