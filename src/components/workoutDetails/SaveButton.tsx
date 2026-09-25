@@ -5,6 +5,7 @@ import { WorkoutContext } from "@/context/WorkoutContext";
 import Button2 from "@/components/shared/Button-2";
 import SaveIcon from "@/assets/save-icon.png"
 import Image from "next/image";
+import { toast } from "react-toastify";
 
 interface SaveButtonProps {
     workout: Workout;
@@ -17,9 +18,11 @@ const SaveButton = ({ workout }: SaveButtonProps) => {
             (item) => item.id === workout.id
         );
         if (alreadySaved) {
+            toast.info("Already saved");
             return;
         }
         setSavedWorkouts([...savedWorkouts, workout]);
+        toast.success("Saved for later");
     };
     return (
         <Button2 onClick={handleSave}>

@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Button1 from "@/components/shared/Button-1";
 import Button2 from "@/components/shared/Button-2";
+import { toast } from "react-toastify";
 
 interface PlanWorkoutCardProps {
     workout: Workout;
@@ -28,10 +29,12 @@ const PlanWorkoutCard = ({ workout, isSaved }: PlanWorkoutCardProps) => {
         );
 
         if (alreadyCompleted) {
+            toast.info("Already marked as done");
             return;
         }
 
         setCompletedWorkouts([...completedWorkouts, workout]);
+        toast.success("Workout marked as done");
     };
 
     const handleRemove = () => {
@@ -40,6 +43,7 @@ const PlanWorkoutCard = ({ workout, isSaved }: PlanWorkoutCardProps) => {
             setSavedWorkouts(
                 savedWorkouts.filter((item) => item.id !== workout.id)
             );
+            toast.success("Removed from saved");
             return;
         }
 
@@ -50,6 +54,7 @@ const PlanWorkoutCard = ({ workout, isSaved }: PlanWorkoutCardProps) => {
         setCompletedWorkouts(
             completedWorkouts.filter((item) => item.id !== workout.id)
         );
+        toast.success("Removed from today's plan");
     };
 
     return (
