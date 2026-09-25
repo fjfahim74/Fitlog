@@ -2,7 +2,9 @@
 import { Workout } from "@/types/Workout";
 import { useContext } from "react";
 import { WorkoutContext } from "@/context/WorkoutContext";
-import Button from "@/components/shared/Button-2";
+import Button2 from "@/components/shared/Button-2";
+import SaveIcon from "@/assets/save-icon.png"
+import Image from "next/image";
 
 interface SaveButtonProps {
     workout: Workout;
@@ -20,9 +22,16 @@ const SaveButton = ({ workout }: SaveButtonProps) => {
         setSavedWorkouts([...savedWorkouts, workout]);
     };
     return (
-        <Button onClick={handleSave}>
+        <Button2 onClick={handleSave}>
+            <Image
+                src={SaveIcon}
+                alt="Save"
+                width={20}
+                height={20}
+                className="brightness-0 invert"
+            />
             Save for later
-        </Button>
+        </Button2>
     );
 };
 

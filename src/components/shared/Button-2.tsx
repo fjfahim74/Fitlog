@@ -5,7 +5,7 @@ interface ButtonProps {
     onClick?: () => void;
 }
 
-const Button = ({ children, onClick }: ButtonProps) => {
+const Button2 = ({ children, onClick }: ButtonProps) => {
     return (
         <button
             onClick={onClick}
@@ -15,4 +15,4 @@ const Button = ({ children, onClick }: ButtonProps) => {
     );
 };
 
-export default Button;
+export default Button2;
