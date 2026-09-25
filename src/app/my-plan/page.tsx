@@ -9,8 +9,20 @@ const MyPlan = () => {
     const { planWorkouts } = useContext(WorkoutContext);
     const { savedWorkouts } = useContext(WorkoutContext);
     const [activeTab, setActiveTab] = useState("plan");
+    const [sortBy, setSortBy] = useState("duration");
     const workouts =
         activeTab === "plan" ? planWorkouts : savedWorkouts;
+    const sortedWorkouts = [...workouts].sort((a, b) => {
+        if (sortBy === "duration") {
+            return a.duration - b.duration;
+        }
+
+        if (sortBy === "calories") {
+            return a.caloriesBurned - b.caloriesBurned;
+        }
+
+        return a.rating - b.rating;
+    });
     const totalMinutes = planWorkouts.reduce(
         (total, workout) => total + workout.duration,
         0
@@ -87,8 +99,15 @@ const MyPlan = () => {
                         Sort By
                     </span>
 
-                    <select className="bg-zinc-900 border border-zinc-800 text-white rounded-lg px-3 py-2 pr-1 text-sm">
-                        <option>Duration</option>
+                    <select
+                        value={sortBy}
+                        onChange={(event) => setSortBy(event.target.value)}
+                        style={{ colorScheme: "dark" }}
+                        className="bg-zinc-900 border border-zinc-800 text-white rounded-lg px-3 py-2 pr-1 text-sm"
+                    >
+                        <option value="duration">Duration</option>
+                        <option value="calories">Calories</option>
+                        <option value="rating">Rating</option>
                     </select>
                 </div>
             </div>
@@ -115,7 +134,7 @@ const MyPlan = () => {
                 </div>
             ) : (
                 <div>
-                    {workouts.map((workout) => (
+                    {sortedWorkouts.map((workout) => (
                         <PlanWorkoutCard key={workout.id} workout={workout} isSaved={activeTab === "saved"} />
                     ))}
                 </div>
