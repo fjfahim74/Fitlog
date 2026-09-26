@@ -5,18 +5,26 @@ import Image from "next/image";
 import logo from "@/assets/logo.png";
 import { useContext } from "react";
 import { WorkoutContext } from "@/context/WorkoutContext";
+import { usePathname } from "next/navigation";
 
 
 const Navbar = () => {
+    const pathname = usePathname();
+
+    const isWorkoutsActive =
+        pathname === "/" || pathname.startsWith("/workout");
+
+    const isMyPlanActive = pathname === "/my-plan";
+
     const { planWorkouts, savedWorkouts } = useContext(WorkoutContext);
     return (
         <div className="navbar bg-black text-white px-6 shadow-sm border-b border-zinc-800">
-            <div className="navbar-start">
+            <div className="navbar-start gap-1.5">
                 <div className="dropdown">
                     <div
                         tabIndex={0}
                         role="button"
-                        className="btn btn-ghost lg:hidden text-lime-400 hover:bg-zinc-800"
+                        className="btn btn-ghost lg:hidden text-lime-400 hover:bg-zinc-800 px-2 py-2"
                     >
                         <svg
                             aria-label="Menu"
@@ -37,13 +45,29 @@ const Navbar = () => {
 
                     <ul
                         tabIndex={-1}
-                        className="menu menu-sm dropdown-content bg-zinc-900 text-white rounded-box z-1 mt-3 w-52 p-2 shadow border border-zinc-800"
+                        className="menu menu-sm dropdown-content bg-zinc-900 text-white rounded-box z-1 mt-3 w-30 p-2 shadow border border-zinc-800"
                     >
                         <li>
-                            <Link href="/" className="bg-zinc-800 text-lime-400  hover:bg-zinc-700 ">Workouts</Link>
+                            <Link href="/" onClick={() =>
+                                document.activeElement instanceof HTMLElement &&
+                                document.activeElement.blur()
+                            }
+                                className={
+                                    isWorkoutsActive
+                                        ? "bg-zinc-900 text-lime-400 px-3 py-2 rounded-full text-sm justify-center font-medium border border-lime-400/20"
+                                        : "text-zinc-400 border border-transparent justify-center"
+                                }>Workouts</Link>
                         </li>
                         <li>
-                            <Link href="/my-plan" className="hover:bg-zinc-700 hover:text-white">My Plan</Link>
+                            <Link href="/my-plan"
+                                onClick={() =>
+                                    document.activeElement instanceof HTMLElement &&
+                                    document.activeElement.blur()
+                                } className={
+                                    isMyPlanActive
+                                        ? "bg-zinc-900 text-lime-400 px-3 py-2 rounded-full text-sm font-medium border border-lime-400/20 justify-center"
+                                        : "text-zinc-400 border border-transparent justify-center"
+                                }>My Plan</Link>
                         </li>
                     </ul>
                 </div>
@@ -57,12 +81,26 @@ const Navbar = () => {
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1 gap-4">
                     <li>
-                        <Link href="/" className="bg-zinc-900 text-lime-400 px-4 py-2 rounded-full text-sm font-medium border border-lime-400/20 hover:bg-zinc-800">
+                        <Link
+                            href="/"
+                            className={
+                                isWorkoutsActive
+                                    ? "bg-zinc-900 text-lime-400 px-4 py-2 rounded-full text-sm font-medium border border-lime-400/20 hover:bg-zinc-800"
+                                    : "text-zinc-400 border border-transparent hover:text-white transition text-sm font-medium px-4 py-2"
+                            }
+                        >
                             Workouts
                         </Link>
                     </li>
                     <li>
-                        <Link href="/my-plan" className="text-zinc-400 hover:text-white transition text-sm font-medium px-4 py-2">
+                        <Link
+                            href="/my-plan"
+                            className={
+                                isMyPlanActive
+                                    ? "bg-zinc-900 text-lime-400 px-4 py-2 rounded-full text-sm font-medium border border-lime-400/20 hover:bg-zinc-800"
+                                    : "text-zinc-400 border border-transparent hover:text-white transition text-sm font-medium px-4 py-2"
+                            }
+                        >
                             My Plan
                         </Link>
                     </li>
@@ -77,7 +115,7 @@ const Navbar = () => {
                     </span>
                 </Link>
 
-                <Link href="/my-plan" className="flex items-center space-x-2">
+                <Link href="/my-plan?tab=saved" className="flex items-center space-x-2">
                     <span className="text-zinc-300">Saved</span>
                     <span className="border border-zinc-700 text-zinc-300 font-bold w-6 h-6 rounded-full flex items-center justify-center text-xs">
                         {savedWorkouts.length}

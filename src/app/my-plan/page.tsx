@@ -4,11 +4,16 @@ import Button from "@/components/shared/Button-1";
 import { useContext, useState } from "react";
 import { WorkoutContext } from "@/context/WorkoutContext";
 import PlanWorkoutCard from "@/components/myPlan/PlanWorkoutCard";
+import { useSearchParams } from "next/navigation";
 
 const MyPlan = () => {
+    const searchParams = useSearchParams();
+    const tab = searchParams.get("tab");
     const { planWorkouts } = useContext(WorkoutContext);
     const { savedWorkouts } = useContext(WorkoutContext);
-    const [activeTab, setActiveTab] = useState("plan");
+    const [activeTab, setActiveTab] = useState(
+        tab === "saved" ? "saved" : "plan"
+    );
     const [sortBy, setSortBy] = useState("duration");
     const workouts =
         activeTab === "plan" ? planWorkouts : savedWorkouts;
