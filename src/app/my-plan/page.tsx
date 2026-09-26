@@ -74,8 +74,8 @@ const MyPlan = () => {
                 </div>
             </div>
 
-            <div className="flex items-center justify-between mt-8">
-                <div className="bg-[#12141c] p-1.5 rounded-xl flex items-center border border-zinc-800">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mt-8">
+                <div className="bg-[#12141c] p-1.5 rounded-xl flex items-center border border-zinc-800 w-fit">
                     <button
                         onClick={() => setActiveTab("plan")}
                         className={
@@ -108,11 +108,13 @@ const MyPlan = () => {
                         value={sortBy}
                         onChange={(event) => setSortBy(event.target.value)}
                         style={{ colorScheme: "dark" }}
-                        className="bg-zinc-900 border border-zinc-800 text-white rounded-lg px-3 py-2 pr-1 text-sm"
+                        className="bg-zinc-900 border border-zinc-800 text-white rounded-lg px-3 py-2 pr-1  text-sm"
                     >
-                        <option value="duration">Duration</option>
-                        <option value="calories">Calories</option>
-                        <option value="rating">Rating</option>
+                        <div className="text-xs sm:text-sm">
+                            <option value="duration">Duration</option>
+                            <option value="calories">Calories</option>
+                            <option value="rating">Rating</option>
+                        </div>
                     </select>
                 </div>
             </div>

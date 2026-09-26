@@ -4,6 +4,8 @@ import { useContext } from "react";
 import { WorkoutContext } from "@/context/WorkoutContext";
 import Button from "@/components/shared/Button-1";
 import { toast } from "react-toastify";
+import Image from "next/image";
+import addicon from "@/assets/add-icon.png"
 
 interface AddToPlanButtonProps {
     workout: Workout;
@@ -19,16 +21,14 @@ const AddToPlanButton = ({ workout }: AddToPlanButtonProps) => {
             toast.info("Already added to today's plan");
             return;
         }
-        if (planWorkouts.length >= 5) {
-            toast.error("Today's plan can only have 5 workouts");
-            return;
-        }
+
         setPlanWorkouts([...planWorkouts, workout]);
         toast.success("Added to today's plan");
     };
     return (
-        <Button onClick={handleAddToPlan}>
-            Add to today's plan
+        <Button
+            onClick={handleAddToPlan}
+            disabled={planWorkouts.length >= 5} className="mx-auto lg:mx-0"> <Image src={addicon} alt="Add" width={18} height={18} /> Add to today's plan
         </Button>
     );
 };

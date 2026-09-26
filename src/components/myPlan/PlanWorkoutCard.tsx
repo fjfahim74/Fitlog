@@ -18,22 +18,13 @@ const PlanWorkoutCard = ({ workout, isSaved }: PlanWorkoutCardProps) => {
         planWorkouts,
         setPlanWorkouts,
         savedWorkouts,
-        setSavedWorkouts,
-        completedWorkouts,
-        setCompletedWorkouts,
+        setSavedWorkouts
     } = useContext(WorkoutContext);
 
     const handleMarkAsDone = () => {
-        const alreadyCompleted = completedWorkouts.some(
-            (item) => item.id === workout.id
+        setPlanWorkouts(
+            planWorkouts.filter((item) => item.id !== workout.id)
         );
-
-        if (alreadyCompleted) {
-            toast.info("Already marked as done");
-            return;
-        }
-
-        setCompletedWorkouts([...completedWorkouts, workout]);
         toast.success("Workout marked as done");
     };
 
@@ -50,15 +41,11 @@ const PlanWorkoutCard = ({ workout, isSaved }: PlanWorkoutCardProps) => {
         setPlanWorkouts(
             planWorkouts.filter((item) => item.id !== workout.id)
         );
-
-        setCompletedWorkouts(
-            completedWorkouts.filter((item) => item.id !== workout.id)
-        );
         toast.success("Removed from today's plan");
     };
 
     return (
-        <div className="border border-zinc-800 rounded-2xl p-5 mt-6 bg-[#12141c] flex gap-4">
+        <div className="border border-zinc-800 rounded-2xl p-5 mt-6 bg-[#12141c] flex flex-wrap gap-4">
             <div className="relative w-32 h-24 shrink-0 overflow-hidden rounded-xl">
                 <Image
                     src={workout.image}
@@ -78,42 +65,47 @@ const PlanWorkoutCard = ({ workout, isSaved }: PlanWorkoutCardProps) => {
                 </p>
 
                 <div className="flex gap-4 mt-3 text-zinc-400 text-sm">
-                    <span>{workout.duration} min</span>
-                    <span>{workout.caloriesBurned} kcal</span>
-                    <span>★ {workout.rating}</span>
+                    <span>⏱ {workout.duration} min</span>
+                    <span>🔥 {workout.caloriesBurned} kcal</span>
+                    <span>☆ {workout.rating}</span>
                 </div>
             </div>
-            <div className="flex items-center gap-3 ml-auto">
+            <div className="flex items-center gap-3 ml-auto max-sm:ml-0 max-sm:mt-2 max-sm:w-full max-sm:justify-center">
                 {!isSaved && (
                     <>
                         <Link href={`/workout/${workout.id}`}>
-                            <Button2>
+                            <Button2 className="px-6 py-4 text-sm max-sm:px-3.5 max-sm:py-2.5 max-sm:text-xs">
                                 View Details
                             </Button2>
                         </Link>
 
                         <Button1
-                            completed={completedWorkouts.some((item) => item.id === workout.id)}
                             onClick={handleMarkAsDone}
+                            className="px-6 py-4 text-sm max-sm:px-3.5 max-sm:py-2.5 max-sm:text-xs"
                         >
-                            {completedWorkouts.some((item) => item.id === workout.id)
-                                ? "✓ Completed"
-                                : "✓ Mark as Done"}
+                            ✓ Mark as Done
                         </Button1>
                     </>
                 )}
 
-                <button
-                    onClick={handleRemove}
-                    className="w-8 h-8 text-zinc-500 flex items-center justify-center hover:text-white text-xl cursor-pointer"
-                >
-                    X
-                </button>
+                {isSaved ? (
+                    <button
+                        onClick={handleRemove}
+                        className="border border-zinc-700 text-white px-5 py-3 rounded-2xl font-medium hover:bg-red-500 transition max-sm:w-90"
+                    >
+                        Remove
+                    </button>
+                ) : (
+                    <button
+                        onClick={handleRemove}
+                        className="w-8 h-8 text-zinc-500 flex items-center justify-center hover:text-white text-xl cursor-pointer max-sm:w-6 max-sm:h-6 max-sm:text-lg"
+                    >
+                        X
+                    </button>
+                )}
             </div>
-        </div>
+        </div >
     );
 };
 
 export default PlanWorkoutCard;
-
-// w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 hover:bg-blue-50

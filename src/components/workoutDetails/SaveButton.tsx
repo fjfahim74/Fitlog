@@ -25,7 +25,7 @@ const SaveButton = ({ workout }: SaveButtonProps) => {
         toast.success("Saved for later");
     };
     return (
-        <Button2 onClick={handleSave}>
+        <Button2 onClick={handleSave} className="w-52 mx-auto lg:mx-0">
             <Image
                 src={SaveIcon}
                 alt="Save"

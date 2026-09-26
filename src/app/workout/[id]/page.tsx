@@ -51,7 +51,7 @@ const WorkoutDetails = async ({ params }: WorkoutDetailsProps) => {
                             alt={workout.name}
                             width={800}
                             height={600}
-                            className="h-full min-h-100 w-full object-cover"
+                            className="h-full w-full object-cover"
                         />
                     </div>
 
@@ -155,9 +155,13 @@ const WorkoutDetails = async ({ params }: WorkoutDetailsProps) => {
                                     </li>
                                 ))}
                             </ol>
-                            <div className="flex justify-center lg:justify-start gap-3 mt-10">
-                                <AddToPlanButton workout={workout} />
-                                <SaveButton workout={workout} />
+                            <div className="flex flex-col lg:flex-row justify-center lg:justify-start gap-3 mt-10">
+                                <div className="w-full sm:w-auto">
+                                    <AddToPlanButton workout={workout} />
+                                </div>
+                                <div className="w-full sm:w-auto">
+                                    <SaveButton workout={workout} />
+                                </div>
                             </div>
                         </div>
                     </div>

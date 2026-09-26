@@ -23,9 +23,23 @@ const Hero = () => {
                     </p>
                     <Link
                         href="#library"
-                        className="bg-lime-400 text-black font-bold px-8 py-4 rounded-xl text-sm tracking-wide hover:bg-lime-300 transition"
+                        className="bg-lime-400 text-black font-bold px-3 py-3 sm:px-3 sm:py-4 rounded-xl text-xs sm:text-sm flex items-center justify-center gap-2"
                     >
                         BROWSE WORKOUTS
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="w-4 h-4"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M5 12h14m-6-6 6 6-6 6"
+                            />
+                        </svg>
                     </Link>
                 </div>
 
