@@ -46,7 +46,7 @@ const PlanWorkoutCard = ({ workout, isSaved }: PlanWorkoutCardProps) => {
 
     return (
         <div className="border border-zinc-800 rounded-2xl p-5 mt-6 bg-[#12141c] flex flex-wrap gap-4">
-            <div className="relative w-32 h-24 shrink-0 overflow-hidden rounded-xl">
+            <div className="relative w-full h-64 sm:w-32 sm:h-24 shrink-0 overflow-hidden rounded-xl">
                 <Image
                     src={workout.image}
                     alt={workout.name}
@@ -70,7 +70,7 @@ const PlanWorkoutCard = ({ workout, isSaved }: PlanWorkoutCardProps) => {
                     <span>☆ {workout.rating}</span>
                 </div>
             </div>
-            <div className="flex items-center gap-3 ml-auto max-sm:ml-0 max-sm:mt-2 max-sm:w-full max-sm:justify-center">
+            <div className="flex items-center gap-3 ml-auto max-sm:ml-0 max-sm:mt-2 max-sm:w-full max-sm:justify-center md:ml-0 md:w-full md:justify-center lg:ml-auto lg:w-auto lg:justify-start">
                 {!isSaved && (
                     <>
                         <Link href={`/workout/${workout.id}`}>

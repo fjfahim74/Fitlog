@@ -4,7 +4,7 @@ import { Workout } from "@/types/Workout";
 
 const WorkoutLibrary = async () => {
     const response = await fetch(
-        "https://api.abcz.workers.dev/api/fitlog"
+        "https://api.api-store.workers.dev/api/fitlog"
     );
 
     const workouts: Workout[] = await response.json();
