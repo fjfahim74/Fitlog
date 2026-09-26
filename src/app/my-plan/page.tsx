@@ -110,11 +110,15 @@ const MyPlan = () => {
                         style={{ colorScheme: "dark" }}
                         className="bg-zinc-900 border border-zinc-800 text-white rounded-lg px-3 py-2 pr-1  text-sm"
                     >
-                        <div className="text-xs sm:text-sm">
-                            <option value="duration">Duration</option>
-                            <option value="calories">Calories</option>
-                            <option value="rating">Rating</option>
-                        </div>
+                        <option value="duration" className="text-xs sm:text-sm">
+                            Duration
+                        </option>
+                        <option value="calories" className="text-xs sm:text-sm">
+                            Calories
+                        </option>
+                        <option value="rating" className="text-xs sm:text-sm">
+                            Rating
+                        </option>
                     </select>
                 </div>
             </div>
