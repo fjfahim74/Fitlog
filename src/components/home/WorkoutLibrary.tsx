@@ -9,8 +9,6 @@ const WorkoutLibrary = async () => {
 
     const workouts: Workout[] = await response.json();
 
-    console.log(workouts);
-
     return (
         <section id="library" className="bg-black px-5 py-16">
             <h2 className="text-white text-4xl font-bold">
