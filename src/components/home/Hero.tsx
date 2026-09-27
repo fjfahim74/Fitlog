@@ -23,7 +23,7 @@ const Hero = () => {
                     </p>
                     <Link
                         href="#library"
-                        className="bg-lime-400 text-black font-bold px-3 py-3 sm:px-3 sm:py-4 rounded-xl text-xs sm:text-sm flex items-center justify-center gap-2"
+                        className="bg-lime-400 text-black font-bold px-3 py-3 sm:px-3 sm:py-4 rounded-xl text-xs sm:text-sm flex items-center justify-center gap-2 mx-auto sm:mx-0"
                     >
                         BROWSE WORKOUTS
                         <svg

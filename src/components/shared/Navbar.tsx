@@ -18,13 +18,13 @@ const Navbar = () => {
 
     const { planWorkouts, savedWorkouts } = useContext(WorkoutContext);
     return (
-        <div className="navbar bg-black text-white px-6 shadow-sm border-b border-zinc-800">
+        <div className="navbar relative bg-black text-white px-3 md:px-6 shadow-sm border-b border-zinc-800">
             <div className="navbar-start gap-1.5">
                 <div className="dropdown">
                     <div
                         tabIndex={0}
                         role="button"
-                        className="btn btn-ghost lg:hidden text-lime-400 hover:bg-zinc-800 px-2 py-2"
+                        className="btn btn-ghost md:hidden text-lime-400 hover:bg-zinc-800 px-2 py-2"
                     >
                         <svg
                             aria-label="Menu"
@@ -72,13 +72,13 @@ const Navbar = () => {
                     </ul>
                 </div>
 
-                <Link href="/" className="flex items-center gap-3">
-                    <Image src={logo} alt="FitLog logo" />
-                    <span className="font-bold tracking-wider text-lg">FITLOG</span>
+                <Link href="/" className="flex items-center gap-2">
+                    <Image src={logo} alt="FitLog logo" className="w-4 md:w-6" />
+                    <span className="font-bold tracking-wider text-sm md:text-base">FITLOG</span>
                 </Link>
             </div>
 
-            <div className="navbar-center hidden lg:flex">
+            <div className="navbar-center hidden md:flex">
                 <ul className="menu menu-horizontal px-1 gap-4">
                     <li>
                         <Link
@@ -107,17 +107,17 @@ const Navbar = () => {
                 </ul>
             </div>
 
-            <div className="navbar-end flex items-center space-x-6 text-sm">
+            <div className="navbar-end flex items-center space-x-2 md:space-x-6 text-sm">
                 <Link href="/my-plan" className="flex items-center space-x-2">
                     <span className="text-zinc-300">Plan</span>
-                    <span className="bg-lime-400 text-black font-bold w-6 h-6 rounded-full flex items-center justify-center text-xs">
+                    <span className="bg-lime-400 text-black font-bold w-5 md:w-6 h-5 md:h-6 rounded-full flex items-center justify-center text-xs">
                         {planWorkouts.length}
                     </span>
                 </Link>
 
                 <Link href="/my-plan?tab=saved" className="flex items-center space-x-2">
                     <span className="text-zinc-300">Saved</span>
-                    <span className="border border-zinc-700 text-zinc-300 font-bold w-6 h-6 rounded-full flex items-center justify-center text-xs">
+                    <span className="border border-zinc-700 text-zinc-300 font-bold w-5 md:w-6 h-5 md:h-6 rounded-full flex items-center justify-center text-xs">
                         {savedWorkouts.length}
                     </span>
                 </Link>
